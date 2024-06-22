@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2023 
+#
+# SPDX-License-Identifier: MPL-2.0
+
+#* {
+:8080 {
+#	tls /home/militão/certs/cert.pem /home/militão/certs/key.pem
+	reverse_proxy /* localhost:3000
+	reverse_proxy /api* localhost:8000
+	reverse_proxy /rapidoc* localhost:8000
+	reverse_proxy /openapi.json localhost:8000
+	reverse_proxy /socket.io* localhost:8000
+}
