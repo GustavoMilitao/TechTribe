@@ -23,7 +23,6 @@ SPDX-License-Identifier: MPL-2.0
 
 	export let data: PageData;
 	let search_term = '';
-	let start_game = null;
 	let download_id: string | null = null;
 	signedIn.set(true);
 	navbarVisible.set(true);
@@ -40,7 +39,41 @@ SPDX-License-Identifier: MPL-2.0
 
 	let id_to_position_map = {};
 
+	const start_game = async (id: string) => {
+		let res;
+		const cqcs_enabled_parsed = 'False';
+		const randomized_answers_parsed = 'False';
+
+		res = await fetch(
+			`/api/v1/quiz/start/${id}?captcha_enabled=False&game_mode=normal&custom_field=&cqcs_enabled=${cqcs_enabled_parsed}&randomize_answers=${randomized_answers_parsed}`,
+			{
+				method: 'POST'
+			}
+		);
+		if (res.status !== 200) {
+			/*			alertModal.set({
+				open: true,
+				title: 'Start failed',
+				body: `Failed to start game, ${await res.text()}`
+			});*/
+			/*alertModal.subscribe((_) => {
+				window.location.assign('/account/login?returnTo=/dashboard');
+			});*/
+			alert('Starting game failed');
+			window.location.assign('/account/login?returnTo=/dashboard');
+		} else {
+			const data = await res.json();
+			// eslint-disable-next-line no-undef
+			plausible('Started Game', { props: { quiz_id: id, game_id: data.game_id } });
+			window.location.assign(
+				`/admin?token=${data.game_id}&pin=${data.game_pin}&connect=1&cqc_code=${data.cqc_code}`
+			);
+		}
+	};
+
 	const getData = async (): Promise<Array<QuizData>> => {
+		const quiz_res = await fetch('/api/v1/quiz/list?page_size=100');
+		data.quizzes = await quiz_res.json();
 		items_to_show = [];
 		for (let i = 0; i < data.quizzes.length; i++) {
 			items_to_show.push({ ...data.quizzes[i], type: 'quiz' });
@@ -76,7 +109,7 @@ SPDX-License-Identifier: MPL-2.0
 	}
 
 	const deleteQuiz = async (to_delete: string, type: 'quiz') => {
-		if (!confirm('Do you really want to delete this quiz?')) {
+		if (!confirm('Quer mesmo apagar esse quiz?')) {
 			return;
 		}
 		if (type === 'quiz') {
@@ -114,7 +147,7 @@ SPDX-License-Identifier: MPL-2.0
                     class='px-4 py-2 font-medium tracking-wide text-gray-500 whitespace-nowrap dark:text-gray-400 capitalize transition-colors dark:bg-gray-700 duration-200 transform bg-[#B07156] rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80'>
                     Primary
                 </button>-->
-			<div class="w-full grid lg:grid-cols-2 gap-2 grid-cols-2 px-4">
+			<div class="w-full grid lg:grid-cols-1 gap-2 grid-cols-2 px-4">
 				{#if create_button_clicked}
 					<div
 						class="flex gap-2"
@@ -124,9 +157,10 @@ SPDX-License-Identifier: MPL-2.0
 						<GreenButton href="/create">{$t('words.quiz')}</GreenButton>
 					</div>
 				{:else}
-					<GreenButton href="/create">{$t('words.create') + ' ' + $t('words.quiz')}</GreenButton>
+					<GreenButton href="/create"
+						>{$t('words.create') + ' ' + $t('words.quiz')}</GreenButton
+					>
 				{/if}
-				<GreenButton href="/results">{$t('words.results')}</GreenButton>
 			</div>
 			{#if quizzes.length !== 0}
 				<div class="flex flex-col gap-4 mt-4 px-2">
@@ -161,7 +195,7 @@ SPDX-License-Identifier: MPL-2.0
 								{#if quiz.type === 'quiz'}
 									<GreenButton
 										on:click={() => {
-											start_game = quiz.id;
+											start_game(quiz.id);
 										}}
 										flex={true}
 									>
@@ -216,18 +250,18 @@ SPDX-License-Identifier: MPL-2.0
 					{/each}
 				</div>
 			{:else}
-			<div class="w-full grid lg:grid-cols-1 gap-1 grid-cols-1 px-4">
-				<p style="color: white;">
-					{$t('overview_page.no_quizzes')}
-				</p>
-			</div>
+				<div class="w-full grid lg:grid-cols-1 gap-1 grid-cols-1 px-4">
+					<p style="color: white;">
+						{$t('overview_page.no_quizzes')}
+					</p>
+				</div>
 			{/if}
 		</div>
 	{:catch err}
 		<p>{err}</p>
 	{/await}
 </div>
-{#if start_game !== null}
+<!-- {#if start_game !== null}
 	<StartGamePopup bind:quiz_id={start_game} />
-{/if}
+{/if} -->
 <DownloadQuiz bind:quiz_id={download_id} />

@@ -10,22 +10,22 @@ export const ABCDQuestionSchema = yup
 	.of(
 		yup.object({
 			right: yup.boolean().required(),
-			answer: yup.string().required('You need an answer')
+			answer: yup.string().required('Você precisa de uma resposta')
 		})
 	)
-	.min(2, 'You need at least 2 answers')
-	.max(16, "You can't have more than 16 answers");
+	.min(2, 'Você precisa de pelo menos 2 respostas')
+	.max(16, "Você não pode ter mais de 16 respostas");
 
 export const VotingQuestionSchema = yup
 	.array()
 	.of(
 		yup.object({
-			answer: yup.string().required('You need an answer'),
+			answer: yup.string().required('Você precisa de uma resposta'),
 			image: yup.string().optional().nullable()
 		})
 	)
-	.min(2, 'You need at least 2 answers')
-	.max(16, "You can't have more than 16 answers");
+	.min(2, 'Você precisa de pelo menos 2 respostas')
+	.max(16, "Você não pode ter mais de 16 respostas");
 
 export const RangeQuestionSchema = yup.object({
 	min: yup.number(),
@@ -39,11 +39,11 @@ export const TextQuestionSchema = yup
 	.of(
 		yup.object({
 			case_sensitive: yup.boolean().required(),
-			answer: yup.string().required('You need an answer')
+			answer: yup.string().required('Você precisa de uma resposta')
 		})
 	)
-	.min(1, 'You need at least 1 answer')
-	.max(16, "You can't have more than 16 answers");
+	.min(1, 'Você precisa de pelo menos uma resposta')
+	.max(16, "Você não pode ter mais de 16 respostas");
 
 export const dataSchema = yup.object({
 	public: yup.boolean().required(),
@@ -80,6 +80,6 @@ export const dataSchema = yup.object({
 				})
 			})
 		)
-		.min(1, 'You need at least one question')
-		.max(50, "You can't have more than 32 questions")
+		.min(1, 'Você precisa de pelo menos 1 pergunta')
+		.max(50, "Você não pode ter mais de 50 perguntas")
 });

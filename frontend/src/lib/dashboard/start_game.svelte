@@ -17,7 +17,7 @@ SPDX-License-Identifier: MPL-2.0
 	const { t } = getLocalization();
 	export let quiz_id;
 	let captcha_selected = false;
-	let selected_game_mode = 'kahoot';
+	let selected_game_mode = 'normal';
 	let loading = false;
 	let custom_field = '';
 	let cqcs_enabled = false;

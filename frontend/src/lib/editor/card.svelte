@@ -84,15 +84,6 @@ SPDX-License-Identifier: MPL-2.0
 	<div class="rounded-lg bg-white w-full h-full border-gray-500 dark:bg-gray-700 shadow-2xl">
 		<div class="h-12 bg-gray-300 rounded-t-lg dark:bg-gray-500">
 			<div class="flex align-middle p-4 gap-3">
-				<span
-					class="inline-block bg-gray-600 w-4 h-4 rounded-full hover:bg-red-400 transition"
-				/>
-				<span
-					class="inline-block bg-gray-600 w-4 h-4 rounded-full hover:bg-yellow-400 transition"
-				/>
-				<span
-					class="inline-block bg-gray-600 w-4 h-4 rounded-full hover:bg-green-400 transition"
-				/>
 			</div>
 		</div>
 		{#if data.questions[selected_question].type === QuizQuestionType.SLIDE}

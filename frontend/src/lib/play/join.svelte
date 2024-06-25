@@ -89,7 +89,7 @@ SPDX-License-Identifier: MPL-2.0
                 body: 'The game pin you entered seems invalid.'
             });*/
 			if (browser) {
-				alert('Game not found');
+				alert('Jogo não encontrado');
 			}
 			game_pin = '';
 			return;
@@ -114,66 +114,22 @@ SPDX-License-Identifier: MPL-2.0
 		if (username.length <= 3) {
 			return;
 		}
-		let captcha_resp: string;
 		if (Cookies.get('kicked')) {
 			console.log("%cYou're Banned!", 'font-size:6rem');
 			return;
 		}
 
-		if (captcha_enabled) {
-			if (hcaptchaSitekey) {
-				try {
-					const { response } = await hcaptcha.execute(hcaptchaWidgetID, {
-						async: true
-					});
-					captcha_resp = response;
-					socket.emit('join_game', {
-						username: username,
-						game_pin: game_pin,
-						captcha: captcha_resp,
-						custom_field: custom_field ? custom_field_value : undefined
-					});
-				} catch (e) {
-					if (import.meta.env.VITE_SENTRY !== null) {
-						Sentry.captureException(e);
-					}
-					/*					alertModal.set({
-                        open: true,
-                        body: "The captcha failed, which is normal, but most of the time it's fixed by reloading!",
-                        title: 'Captcha failed'
-                    });*/
-					alert('Captcha failed!');
-					window.location.reload();
-				}
-			} else if (import.meta.env.VITE_RECAPTCHA) {
-				// eslint-disable-next-line no-undef
-				grecaptcha.ready(() => {
-					// eslint-disable-next-line no-undef
-					grecaptcha
-						.execute(import.meta.env.VITE_RECAPTCHA, { action: 'submit' })
-						.then(function (token) {
-							socket.emit('join_game', {
-								username: username,
-								game_pin: game_pin,
-								captcha: token,
-								custom_field: custom_field ? custom_field_value : undefined
-							});
-						});
-				});
-			}
-		} else {
-			socket.emit('join_game', {
-				username: username,
-				game_pin: game_pin,
-				captcha: undefined,
-				custom_field: custom_field ? custom_field_value : undefined
-			});
-		}
+		socket.emit('join_game', {
+			username: username,
+			game_pin: game_pin,
+			captcha: undefined,
+			custom_field: custom_field ? custom_field_value : undefined
+		});
 	};
 	socket.on('game_not_found', () => {
 		game_pin = '';
 		if (browser) {
-			alert('Game not found');
+			alert('Jogo não encontrado');
 		}
 	});
 
@@ -205,9 +161,6 @@ SPDX-License-Identifier: MPL-2.0
 			<!--				use:tippy={{content: "Please enter the game pin", sticky: true, placement: 'top'}}-->
 
 			<br />
-			<div class="mt-2">
-				<GreenButton disabled={game_pin.length < 6}>{$t('words.submit')}</GreenButton>
-			</div>
 		</form>
 	</div>
 {:else}
@@ -232,7 +185,7 @@ SPDX-License-Identifier: MPL-2.0
 
 			<div class="mt-2">
 				<GreenButton disabled={username.length <= 3} on:click={setUsername}
-					>{$t('words.submit')}</GreenButton
+					>Entrar no jogo</GreenButton
 				>
 			</div>
 		</form>
