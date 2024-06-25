@@ -12,6 +12,7 @@ SPDX-License-Identifier: MPL-2.0
 	import { createTippy } from 'svelte-tippy';
 	import { getLocalization } from '$lib/i18n';
 	import AddNewQuestionPopup from '$lib/editor/AddNewQuestionPopup.svelte';
+	import type { Answers, Question } from '$lib/quiz_types';
 	import GreenButton from '$lib/components/buttons/green.svelte';
 	import { fade } from 'svelte/transition';
 
@@ -199,7 +200,7 @@ SPDX-License-Identifier: MPL-2.0
 					class="rounded-full absolute -top-3 -right-3 opacity-70 hover:opacity-100 transition"
 					type="button"
 					on:click={() => {
-						if (confirm('Do you really want to delete this Question?')) {
+						if (confirm('Quer realmente deletar essa questão?')) {
 							selected_question = -1;
 							data.questions.splice(index, 1);
 							data.questions = data.questions;
@@ -331,7 +332,14 @@ SPDX-License-Identifier: MPL-2.0
 				type="button"
 				class="h-full flex justify-center w-full flex-col border-black dark:text-white"
 				on:click={() => {
-					add_new_question_popup_open = true;
+					data.questions = [...data.questions, { ...{
+						type: QuizQuestionType.ABCD,
+						time: '20',
+						question: '',
+						image: undefined,
+						answers: []
+					} }];
+					selected_question = data.questions.length - 1;
 				}}
 			>
 				<span class="w-full text-center">{$t('words.question')}</span>
@@ -353,10 +361,10 @@ SPDX-License-Identifier: MPL-2.0
 		</div>
 	</div>
 </div>
-{#if add_new_question_popup_open}
+<!-- {#if add_new_question_popup_open}
 	<AddNewQuestionPopup
 		bind:questions={data.questions}
 		bind:open={add_new_question_popup_open}
 		bind:selected_question
 	/>
-{/if}
+{/if} -->

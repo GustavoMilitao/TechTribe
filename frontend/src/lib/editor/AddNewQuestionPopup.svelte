@@ -42,41 +42,6 @@ SPDX-License-Identifier: MPL-2.0
 			description: $t('editor.abcd_description'),
 			answers: [],
 			type: QuizQuestionType.ABCD
-		},
-		{
-			name: $t('words.voting'),
-			description: $t('editor.voting_description'),
-			answers: [],
-			type: QuizQuestionType.VOTING
-		},
-		{
-			name: $t('words.check_choice'),
-			description: $t('editor.check_choice_description'),
-			answers: [],
-			type: QuizQuestionType.CHECK
-		},
-		{
-			name: $t('words.order'),
-			description: $t('editor.order_description'),
-			answers: [],
-			type: QuizQuestionType.ORDER
-		},
-		{
-			name: $t('words.text'),
-			description: $t('editor.text_description'),
-			answers: [],
-			type: QuizQuestionType.TEXT
-		},
-		{
-			name: $t('words.range'),
-			description: $t('editor.range_description'),
-			answers: {
-				max: 10,
-				min: 0,
-				max_correct: 7,
-				min_correct: 3
-			},
-			type: QuizQuestionType.RANGE
 		}
 	];
 

@@ -36,7 +36,7 @@ from techtribe.routers import (
     moderation,
 )
 from techtribe.socket_server import sio
-from techtribe.helpers import meilisearch_init, telemetry_ping
+from techtribe.helpers import meilisearch_init
 
 settings = settings()
 if settings.sentry_dsn:
@@ -63,7 +63,6 @@ async def startup() -> None:
     if not database_.is_connected:
         await database_.connect()
     await meilisearch_init()
-    await telemetry_ping()
 
 
 @app.on_event("shutdown")

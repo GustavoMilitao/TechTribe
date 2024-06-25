@@ -223,27 +223,6 @@ async def meilisearch_init():
     meilisearch.index(settings.meilisearch_index).update_settings({"sortableAttributes": ["created_at"]})
     print("Finished MeiliSearch synchronisation")
 
-
-async def telemetry_ping():
-    try:
-        instance_data = await InstanceData.objects.first()
-    except ormar.exceptions.NoMatch:
-        instance_data = InstanceData()
-        await instance_data.save()
-    async with (
-        ClientSession() as session,
-        session.post(
-            f"https://cit.militão.eu.org/public/{instance_data.instance_id}",
-            json={
-                "public_quizzes": await Quiz.objects.filter(public=True).count(),
-                "private_quizzes": await Quiz.objects.filter(public=False).count(),
-                "users": await User.objects.count(),
-            },
-        ),
-    ):
-        return
-
-
 def check_hashcash(data: str, input_data: str, claim_in: Optional[str] = "19") -> bool:
     """
     It checks that the hashcash is valid, and if it is, it returns True
