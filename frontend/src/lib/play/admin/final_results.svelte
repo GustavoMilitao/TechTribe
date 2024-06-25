@@ -37,13 +37,13 @@ SPDX-License-Identifier: MPL-2.0
 
 	let canvas;
 	onMount(() => {
-		setTimeout(() => {
-			confetti.create(canvas, {
-				resize: true,
-				useWorker: true
-			});
-			confetti({ particleCount: 200, spread: 160 });
-		}, player_count_or_five * 1200 - 800);
+		// setTimeout(() => {
+		// 	confetti.create(canvas, {
+		// 		resize: true,
+		// 		useWorker: true
+		// 	});
+		// 	confetti({ particleCount: 200, spread: 160 });
+		// }, player_count_or_five * 1200 - 800);
 	});
 </script>
 

@@ -55,7 +55,7 @@ SPDX-License-Identifier: MPL-2.0
 			<p class="p-4 bg-black bg-opacity-40 rounded-lg text-2xl">
 				+{score_by_username[username] ?? '0'}
 			</p>
-			<p>Total score: {scores[username] ?? '0'}</p>
+			<p>Pontos totais: {scores[username] ?? '0'}</p>
 		</div>
 	</div>
 </div>

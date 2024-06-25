@@ -88,7 +88,7 @@ SPDX-License-Identifier: MPL-2.0
 	};
 
 	onMount(() => {
-		setTimeout(show_new_score, 1000);
+		show_new_score();
 	});
 
 	// https://svelte.dev/repl/96a58afdea2248a5b7e489160ffba887?version=3.44.2
@@ -104,7 +104,7 @@ SPDX-License-Identifier: MPL-2.0
 					>
 					<th class="p-2 border-b-2 border-b-black">{$t('words.point', { count: 2 })}</th>
 					{#if show_new_score_clicked}
-						<th in:fly={{ x: 300 }} class="p-2 border-b-2 border-b-black"
+						<th class="p-2 border-b-2 border-b-black"
 							>{$t('play_page.points_added')}
 						</th>
 					{/if}
@@ -115,7 +115,7 @@ SPDX-License-Identifier: MPL-2.0
 						<td class:hidden={i > 3} class="p-2">{data[player]}</td>
 						{#if show_new_score_clicked}
 							<td
-								in:fly={{ x: 300 }}
+							
 								class:hidden={i > 3}
 								class="p-2"
 								class:text-red-600={score_by_username[player] === 0 ||

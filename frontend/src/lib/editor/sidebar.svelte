@@ -80,7 +80,7 @@ SPDX-License-Identifier: MPL-2.0
 			on:click={() => setSelectedQuestion(-1)}
 		>
 			<div
-				use:tippy={{ content: data.title === '' ? "It's empty!" : data.title }}
+				use:tippy={{ content: data.title === '' ? "Vazio!" : data.title }}
 				class="m-1 border border-gray-500 rounded-lg p-0.5 transition"
 				class:border-red-600={!reach(dataSchema, 'title').isValidSync(data.title)}
 				class:border-solid={!reach(dataSchema, 'title').isValidSync(data.title)}
@@ -99,7 +99,7 @@ SPDX-License-Identifier: MPL-2.0
 				</p>
 			</div>
 			<div
-				use:tippy={{ content: data.description === '' ? "It's empty!" : data.description }}
+				use:tippy={{ content: data.description === '' ? "Vazio!" : data.description }}
 				class="m-1 border border-gray-500 rounded-lg p-0.5 transition"
 				class:border-red-600={!reach(dataSchema, 'description').isValidSync(
 					data.description

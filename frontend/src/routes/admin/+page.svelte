@@ -153,40 +153,10 @@ SPDX-License-Identifier: MPL-2.0
 		{#if control_visible}
 			<div class="w-screen flex justify-center mt-16">
 				<div class="w-fit">
-					{#if export_token === undefined}
-						<GrayButton on:click={request_answer_export}
-							>{$t('admin_page.request_export_results')}</GrayButton
-						>
-					{:else}
-						<GrayButton
-							target="_blank"
-							href="/api/v1/quiz/export_data/{export_token}?ts={new Date().getTime()}&game_pin={game_pin}"
-							>{$t('admin_page.download_export_results')}</GrayButton
-						>
-					{/if}
 				</div>
 			</div>
 			<div class="w-screen flex justify-center mt-2">
 				<div class="w-fit">
-					<GrayButton on:click={save_quiz} flex={true} disabled={results_saved}>
-						{#if results_saved}
-							<svg
-								class="w-4 h-4"
-								aria-hidden="true"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M5 13l4 4L19 7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-						{:else}{$t('admin_page.save_results')}{/if}
-					</GrayButton>
 				</div>
 			</div>
 		{/if}
