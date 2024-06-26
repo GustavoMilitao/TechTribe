@@ -7,13 +7,11 @@ SPDX-License-Identifier: MPL-2.0
 <script lang="ts">
 	import type { EditorData } from '$lib/quiz_types';
 	import { QuizQuestionType } from '$lib/quiz_types';
-	import RangeEditor from '$lib/editor/RangeSelectorEditorPart.svelte';
 	import { reach } from 'yup';
 	import { dataSchema } from '$lib/yupSchemas';
 	import Spinner from '../Spinner.svelte';
 	// import { createTippy } from 'svelte-tippy';
 	import { getLocalization } from '$lib/i18n';
-	import MediaComponent from '$lib/editor/MediaComponent.svelte';
 	// import MediaComponent from "$lib/editor/MediaComponent.svelte";
 
 	const { t } = getLocalization();
@@ -86,14 +84,6 @@ SPDX-License-Identifier: MPL-2.0
 			<div class="flex align-middle p-4 gap-3">
 			</div>
 		</div>
-		{#if data.questions[selected_question].type === QuizQuestionType.SLIDE}
-			{#await import('./slide.svelte')}
-				<Spinner my_20={false} />
-			{:then c}
-				<svelte:component this={c.default} bind:data={data.questions[selected_question]} />
-			{/await}
-		{:else}
-			{@const type = data.questions[selected_question].type}
 			<div class="flex flex-col">
 				<div class="flex justify-center pt-10 w-full">
 					{#key unique}
@@ -115,48 +105,6 @@ SPDX-License-Identifier: MPL-2.0
 						{/await}
 					{/key}
 				</div>
-				{#if data.questions[selected_question].image}
-					<div class="flex justify-center pt-10 w-full h-72">
-						<div class="h-72 relative">
-							<button
-								class="rounded-full absolute -top-2 -right-2 opacity-70 hover:opacity-100 transition"
-								type="button"
-								on:click={() => {
-									data.questions[selected_question].image = null;
-								}}
-							>
-								<svg
-									class="w-6 h-6 bg-red-500 rounded-full"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-									/>
-								</svg>
-							</button>
-							<MediaComponent bind:src={image_url} />
-						</div>
-					</div>
-				{:else}
-					{#await import('$lib/editor/uploader.svelte')}
-						<Spinner my_20={false} />
-					{:then c}
-						<svelte:component
-							this={c.default}
-							bind:modalOpen={uppyOpen}
-							bind:edit_id
-							bind:data
-							bind:selected_question
-							video_upload={true}
-						/>
-					{/await}
-				{/if}
 				<div class="flex justify-center pt-10 w-full">
 					<div>
 						<svg
@@ -187,7 +135,6 @@ SPDX-License-Identifier: MPL-2.0
 					<p>{type_to_name[String(data.questions[selected_question].type)]}</p>
 				</div>
 				<div class="flex justify-center w-full">
-					{#if type === QuizQuestionType.ABCD || type === QuizQuestionType.CHECK}
 						{#await import('$lib/editor/ABCDEditorPart.svelte')}
 							<Spinner my_20={false} />
 						{:then c}
@@ -195,32 +142,10 @@ SPDX-License-Identifier: MPL-2.0
 								this={c.default}
 								bind:data
 								bind:selected_question
-								check_choice={type === QuizQuestionType.CHECK}
+								check_choice={data.questions[selected_question].type === QuizQuestionType.CHECK}
 							/>
 						{/await}
-					{:else if type === QuizQuestionType.RANGE}
-						<RangeEditor bind:selected_question bind:data />
-					{:else if type === QuizQuestionType.VOTING}
-						{#await import('$lib/editor/VotingEditorPart.svelte')}
-							<Spinner my_20={false} />
-						{:then c}
-							<svelte:component this={c.default} bind:data bind:selected_question />
-						{/await}
-					{:else if type === QuizQuestionType.TEXT}
-						{#await import('$lib/editor/TextEditorPart.svelte')}
-							<Spinner my_20={false} />
-						{:then c}
-							<svelte:component this={c.default} bind:data bind:selected_question />
-						{/await}
-					{:else if type === QuizQuestionType.ORDER}
-						{#await import('$lib/editor/OrderEditorPart.svelte')}
-							<Spinner my_20={false} />
-						{:then c}
-							<svelte:component this={c.default} bind:data bind:selected_question />
-						{/await}
-					{/if}
 				</div>
 			</div>
-		{/if}
 	</div>
 </div>

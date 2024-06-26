@@ -38,14 +38,7 @@ SPDX-License-Identifier: MPL-2.0
 				description: '',
 				public: false,
 				title,
-				questions: [
-					/*					{
-						type: QuizQuestionType.ABCD,
-						question: '',
-						time: '20',
-						answers: [{ right: false, answer: '' }]
-					}*/
-				]
+				questions: []
 			};
 		} else {
 			data = JSON.parse(from_localstorage);

@@ -7,7 +7,6 @@ SPDX-License-Identifier: MPL-2.0
 <script lang="ts">
 	import type { Question } from '$lib/quiz_types';
 	import { get_foreground_color } from '$lib/helpers';
-	import { kahoot_icons } from '$lib/play/kahoot_mode_assets/kahoot_icons';
 	import CircularTimer from '$lib/play/circular_progress.svelte';
 	// import CircularTimer from '$lib/play/circular_progress.svelte';
 	const default_colors = ['#D6EDC9', '#B07156', '#7F7057', '#4E6E58'];
@@ -63,11 +62,7 @@ SPDX-License-Identifier: MPL-2.0
 				class:opacity-100={_selected_answers[i]}
 				class:opacity-50={!_selected_answers[i]}
 			>
-				{#if game_mode === 'kahoot'}
-					<img class="h-2/3 inline-block m-auto" alt="Icon" src={kahoot_icons[i]} />
-				{:else}
 					<p class="m-auto">{answer.answer}</p>
-				{/if}
 			</button>
 		{/each}
 	</div>

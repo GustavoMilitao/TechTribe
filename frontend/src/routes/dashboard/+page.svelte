@@ -5,25 +5,16 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 <script lang="ts">
-	import DownloadQuiz from '$lib/components/DownloadQuiz.svelte';
 	import type { QuizData } from '$lib/quiz_types';
 	import { getLocalization } from '$lib/i18n';
 	import { navbarVisible, signedIn } from '$lib/stores';
-	import CommandpaletteNotice from '$lib/components/popover/commandpalettenotice.svelte';
 	import Fuse from 'fuse.js';
 	import type { PageData } from './$types';
-	import { fly } from 'svelte/transition';
-	import StartGamePopup from '$lib/dashboard/start_game.svelte';
 	import Analytics from './Analytics.svelte';
-	import MediaComponent from '$lib/editor/MediaComponent.svelte';
-	import { createTippy } from 'svelte-tippy';
 	import GreenButton from '$lib/components/buttons/green.svelte';
-
-	// import GrayButton from "$lib/components/buttons/gray.svelte";
 
 	export let data: PageData;
 	let search_term = '';
-	let download_id: string | null = null;
 	signedIn.set(true);
 	navbarVisible.set(true);
 	const { t } = getLocalization();
@@ -31,11 +22,6 @@ SPDX-License-Identifier: MPL-2.0
 	let items_to_show = [];
 	let all_items: Array<any>;
 	let fuse;
-	const tippy = createTippy({
-		arrow: true,
-		animation: 'perspective-subtle',
-		placement: 'bottom'
-	});
 
 	let id_to_position_map = {};
 
@@ -51,14 +37,6 @@ SPDX-License-Identifier: MPL-2.0
 			}
 		);
 		if (res.status !== 200) {
-			/*			alertModal.set({
-				open: true,
-				title: 'Start failed',
-				body: `Failed to start game, ${await res.text()}`
-			});*/
-			/*alertModal.subscribe((_) => {
-				window.location.assign('/account/login?returnTo=/dashboard');
-			});*/
 			alert('Starting game failed');
 			window.location.assign('/account/login?returnTo=/dashboard');
 		} else {
@@ -119,7 +97,6 @@ SPDX-License-Identifier: MPL-2.0
 		}
 		window.location.reload();
 	};
-	let create_button_clicked = false;
 
 	let analytics_quiz_selected: undefined | QuizData = undefined;
 </script>
@@ -128,7 +105,6 @@ SPDX-License-Identifier: MPL-2.0
 	<title>TechTribe - Dashboard</title>
 </svelte:head>
 <Analytics bind:quiz={analytics_quiz_selected} />
-<CommandpaletteNotice />
 <div class="min-h-screen flex flex-col">
 	{#await getData()}
 		<svg class="h-8 w-8 animate-spin mx-auto my-20" viewBox="3 3 18 18">
@@ -143,24 +119,8 @@ SPDX-License-Identifier: MPL-2.0
 		</svg>
 	{:then quizzes}
 		<div class="flex flex-col w-full mx-auto">
-			<!--		<button
-                    class='px-4 py-2 font-medium tracking-wide text-gray-500 whitespace-nowrap dark:text-gray-400 capitalize transition-colors dark:bg-gray-700 duration-200 transform bg-[#B07156] rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80'>
-                    Primary
-                </button>-->
 			<div class="w-full grid lg:grid-cols-1 gap-2 grid-cols-2 px-4">
-				{#if create_button_clicked}
-					<div
-						class="flex gap-2"
-						transition:fly={{ y: 10 }}
-						use:tippy={{ content: 'Unsure? Choose "Quiz".' }}
-					>
-						<GreenButton href="/create">{$t('words.quiz')}</GreenButton>
-					</div>
-				{:else}
-					<GreenButton href="/create"
-						>{$t('words.create') + ' ' + $t('words.quiz')}</GreenButton
-					>
-				{/if}
+				<GreenButton href="/create">{$t('words.create') + ' ' + $t('words.quiz')}</GreenButton>
 			</div>
 			{#if quizzes.length !== 0}
 				<div class="flex flex-col gap-4 mt-4 px-2">
@@ -169,18 +129,6 @@ SPDX-License-Identifier: MPL-2.0
 							class="grid grid-cols-2 lg:grid-cols-3 w-full rounded border-[#B07156] border-2 p-2 h-[20vh] overflow-hidden max-h-[20vh]"
 						>
 							<div class="hidden lg:flex w-auto h-full items-center relative">
-								{#if quiz.cover_image}
-									<!--									<img
-										src="/api/v1/storage/download/{quiz.cover_image}"
-										alt="user provided"
-										loading="lazy"
-										class="shrink-0 max-w-full max-h-full absolute rounded"
-									/>-->
-									<MediaComponent
-										src={quiz.cover_image}
-										css_classes="shrink-0 max-w-full max-h-full absolute rounded"
-									/>
-								{/if}
 							</div>
 							<div class="my-auto mx-auto max-h-full overflow-hidden">
 								<p class="text-xl text-center">{@html quiz.title}</p>
@@ -261,7 +209,3 @@ SPDX-License-Identifier: MPL-2.0
 		<p>{err}</p>
 	{/await}
 </div>
-<!-- {#if start_game !== null}
-	<StartGamePopup bind:quiz_id={start_game} />
-{/if} -->
-<DownloadQuiz bind:quiz_id={download_id} />

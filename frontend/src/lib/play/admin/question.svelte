@@ -8,9 +8,7 @@ SPDX-License-Identifier: MPL-2.0
 	import { QuizQuestionType } from '$lib/quiz_types';
 	import type { QuizData } from '$lib/quiz_types';
 	import { get_foreground_color } from '$lib/helpers.js';
-	import { kahoot_icons } from '$lib/play/kahoot_mode_assets/kahoot_icons.js';
 	import CircularTimer from '$lib/play/circular_progress.svelte';
-	import MediaComponent from '$lib/editor/MediaComponent.svelte';
 	import { getLocalization } from '$lib/i18n';
 
 	export let quiz_data: QuizData;
@@ -55,15 +53,6 @@ SPDX-License-Identifier: MPL-2.0
 		</p>
 	</div>
 </div>
-{#if quiz_data.questions[selected_question].image !== null}
-	<div class="flex w-full">
-		<MediaComponent
-			src={quiz_data.questions[selected_question].image}
-			muted={false}
-			css_classes="max-h-[20vh] object-cover mx-auto mb-8 w-auto"
-		/>
-	</div>
-{/if}
 {#if quiz_data.questions[selected_question].type === QuizQuestionType.ABCD || quiz_data.questions[selected_question].type === QuizQuestionType.VOTING || quiz_data.questions[selected_question].type === QuizQuestionType.CHECK}
 	<div class="grid grid-rows-2 grid-flow-col auto-cols-auto gap-2 w-full p-4">
 		{#each quiz_data.questions[selected_question].answers as answer, i}

@@ -16,7 +16,6 @@ SPDX-License-Identifier: MPL-2.0
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import FinalResults from '$lib/play/admin/final_results.svelte';
-	import GrayButton from '$lib/components/buttons/gray.svelte';
 	import { page } from '$app/stores';
 
 	navbarVisible.set(false);

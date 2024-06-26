@@ -12,9 +12,6 @@ SPDX-License-Identifier: MPL-2.0
 
 	const { t } = getLocalization();
 
-	let uppyOpen = false;
-	let bg_uppy_open = false;
-
 	export let edit_id: string;
 	export let data: EditorData;
 
@@ -61,30 +58,6 @@ SPDX-License-Identifier: MPL-2.0
 			</div>
 
 			<div class="w-full flex justify-center -mt-8">
-				{#if data.background_image}
-					<button
-						on:click={() => {
-							data.background_image = undefined;
-						}}
-						class="mt-10 bg-red-500 p-2 rounded-lg border-2 border-black transition hover:bg-red-400"
-						>Remove Background-Image
-					</button>
-				{:else}
-					{#await import('$lib/editor/uploader.svelte')}
-						<div class="pt-10">
-							<Spinner my_20={false} />
-						</div>
-					{:then c}
-						<svelte:component
-							this={c.default}
-							bind:modalOpen={bg_uppy_open}
-							bind:edit_id
-							bind:data
-							selected_question={-1}
-							video_upload={false}
-						/>
-					{/await}
-				{/if}
 			</div>
 		</div>
 	</div>

@@ -10,12 +10,10 @@ SPDX-License-Identifier: MPL-2.0
 	import { socket } from '$lib/socket';
 	import Spinner from '../Spinner.svelte';
 	import { getLocalization } from '$lib/i18n';
-	import { kahoot_icons } from './kahoot_mode_assets/kahoot_icons';
 	import CircularTimer from '$lib/play/circular_progress.svelte';
 	import { flip } from 'svelte/animate';
 	import GreenButton from '$lib/components/buttons/green.svelte';
 	import { get_foreground_color } from '../helpers';
-	import MediaComponent from '$lib/editor/MediaComponent.svelte';
 
 	const { t } = getLocalization();
 
@@ -156,14 +154,6 @@ SPDX-License-Identifier: MPL-2.0
 			>
 				{@html question.question}
 			</h1>
-			{#if question.image !== null && game_mode !== 'kahoot'}
-				<div class="max-h-full">
-					<MediaComponent
-						src={question.image}
-						css_classes="object-cover mx-auto mb-8 max-h-[90%]"
-					/>
-				</div>
-			{/if}
 		</div>
 	{/if}
 	{#if timer_res !== '0'}
@@ -190,15 +180,7 @@ SPDX-License-Identifier: MPL-2.0
 							disabled={selected_answer !== undefined}
 							on:click={() => selectAnswer(answer.answer)}
 						>
-							{#if game_mode === 'kahoot'}
-								<img
-									class="h-2/3 inline-block m-auto"
-									alt="Icon"
-									src={kahoot_icons[i]}
-								/>
-							{:else}
 								<p class="m-auto">{answer.answer}</p>
-							{/if}
 						</button>
 					{/each}
 				</div>

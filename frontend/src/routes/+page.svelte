@@ -7,19 +7,7 @@ SPDX-License-Identifier: MPL-2.0
 <script lang="ts">
 	import { navbarVisible } from '$lib/stores';
 	import { getLocalization } from '$lib/i18n';
-	import WebPOpenGraph from '$lib/assets/landing/opengraph-home.webp';
-	import JpgOpenGraph from '$lib/assets/landing/opengraph-home.jpg';
-	import Newsletter from '$lib/landing/newsletter.svelte';
-	import { fly, fade } from 'svelte/transition';
-
 	/*	import LandingPromo from '$lib/landing/landing-promo.svelte';*/
-
-	import FindScreenshot from '$lib/assets/landing_new/find.webp';
-	import ImportScreenshot from '$lib/assets/landing_new/import.webp';
-	import EditScreenshot from '$lib/assets/landing_new/edit.webp';
-	import SelectScreenshot from '$lib/assets/landing_new/select.webp';
-	import ResultScreenshot from '$lib/assets/landing_new/result.webp';
-	import WinnersScreenshot from '$lib/assets/landing_new/winners.webp';
 	import { onMount } from 'svelte';
 
 	const { t } = getLocalization();
@@ -141,7 +129,6 @@ SPDX-License-Identifier: MPL-2.0
 		property="og:description"
 		content="TechTribe is a quiz-application like KAHOOT!, but open-source. You can create quizzes and play them remotely with other people."
 	/>
-	<meta property="og:image" content={JpgOpenGraph} />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta property="twitter:domain" content="techtribe.de" />
@@ -151,7 +138,6 @@ SPDX-License-Identifier: MPL-2.0
 		name="twitter:description"
 		content="TechTribe is a quiz-application like KAHOOT!, but open-source. You can create quizzes and play them remotely with other people."
 	/>
-	<meta name="twitter:image" content={WebPOpenGraph} />
 </svelte:head>
 
 <!--<div class="min-h-screen flex flex-col">

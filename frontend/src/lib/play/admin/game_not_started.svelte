@@ -5,36 +5,20 @@ SPDX-License-Identifier: MPL-2.0
 -->
 
 <script lang="ts">
-	import AudioPlayer from '$lib/play/audio_player.svelte';
 	import ControllerCodeDisplay from '$lib/components/controller/code.svelte';
 	import { getLocalization } from '$lib/i18n';
 	import GrayButton from '$lib/components/buttons/gray.svelte';
-	import { fade } from 'svelte/transition';
 
 	export let game_pin: string;
 	export let players;
 	export let socket;
 	export let cqc_code: string;
 
-	let fullscreen_open = false;
 	const { t } = getLocalization();
-	let play_music = false;
 
 	if (cqc_code === 'null') {
 		cqc_code = null;
 	}
-
-	const kick_player = (username: string) => {
-		socket.emit('kick_player', { username: username });
-		for (let i = 0; i < players.length; i++) {
-			console.log(players[i].username, username);
-			if (players[i].username === username) {
-				players.splice(i, 1);
-				break;
-			}
-		}
-		players = players;
-	};
 </script>
 
 <div class="w-full">

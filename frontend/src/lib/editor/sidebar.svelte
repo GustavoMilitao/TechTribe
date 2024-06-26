@@ -11,9 +11,7 @@ SPDX-License-Identifier: MPL-2.0
 	import { ABCDQuestionSchema, dataSchema } from '../yupSchemas';
 	import { createTippy } from 'svelte-tippy';
 	import { getLocalization } from '$lib/i18n';
-	import AddNewQuestionPopup from '$lib/editor/AddNewQuestionPopup.svelte';
-	import type { Answers, Question } from '$lib/quiz_types';
-	import GreenButton from '$lib/components/buttons/green.svelte';
+	import type { Question } from '$lib/quiz_types';
 	import { fade } from 'svelte/transition';
 
 	const { t } = getLocalization();
