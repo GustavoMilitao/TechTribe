@@ -41,12 +41,7 @@ SPDX-License-Identifier: MPL-2.0
 				window.location.reload();
 			}
 			if (data.detail === 'wrong credentials') {
-				/*				alertModal.set({
-					open: true,
-					body: 'Please try again. Your email and or password were incorrect.',
-					title: 'Wrong Credentials'
-				});*/
-				alert('Wrong credentials');
+				alert('usuário ou senha inválidos');
 			}
 		}
 	};

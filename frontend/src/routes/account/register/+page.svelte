@@ -17,21 +17,21 @@ SPDX-License-Identifier: MPL-2.0
 	import * as yup from 'yup';
 
 	const registerSchema = yup.object({
-		email: yup.string().email('Email precisa ser válido!').required(),
+		email: yup.string().email('Email precisa ser válido!').required('Email é obrigatório!'),
 		password1: yup
 			.string()
-			.required()
+			.required('Senha é obrigatória!')
 			.min(8, 'A senha deve possuir pelo menos 8 caracteres!'),
 		password2: yup
 			.string()
-			.required()
+			.required('Senha é obrigatória!')
 			.test('equal', 'Senhas não conferem!', function (v) {
 				const ref = yup.ref('password1');
 				return v === this.resolve(ref);
 			}),
 		username: yup
 			.string()
-			.required()
+			.required('Nome de Usuário é obrigatório!')
 	});
 
 	const { form, errors, touched, isValid, isSubmitting } = createForm<
@@ -75,7 +75,7 @@ SPDX-License-Identifier: MPL-2.0
 <div class="flex items-center justify-center h-full px-4">
 	<div>
 		<div
-			class="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800"
+			class="w-full max-w-sm mx-auto overflow-hidden bg-white shadow-md dark:bg-gray-800"
 		>
 			<div class="px-6 py-4">
 				<h2 class="text-3xl font-bold text-center text-gray-700 dark:text-white">
@@ -155,7 +155,7 @@ SPDX-License-Identifier: MPL-2.0
 									name="password2"
 									type="password"
 									class="w-full peer bg-transparent h-10 rounded-lg text-gray-700 dark:text-white placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600"
-									placeholder={$t('words.password')}
+									placeholder={$t('words.repeat_password')}
 									class:ring-red-700={$errors.password2 !== null}
 									class:ring-green-600={$touched.password2 === true &&
 										$errors.password2 === null}
