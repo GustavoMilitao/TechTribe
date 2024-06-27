@@ -58,8 +58,8 @@ export const dataSchema = yup.object({
 		.array()
 		.of(
 			yup.object({
-				question: yup.string().required('A question-title is required').max(299),
-				time: yup.number().required().positive('The time has to be positive'),
+				question: yup.string().required('Um título para a questão é obrigatório').max(299),
+				time: yup.number().required().positive('Timer precisa ser positivo'),
 				image: yup.string().nullable().lowercase(),
 				answers: yup.lazy((v) => {
 					if (Array.isArray(v)) {

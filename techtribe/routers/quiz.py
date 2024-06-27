@@ -21,7 +21,6 @@ from techtribe.auth import get_current_user
 from techtribe.config import redis, settings, storage, meilisearch
 from techtribe.db.models import Quiz, User, PlayGame, GameInLobby, QuizQuestion, QuizQuestionType
 from techtribe.helpers.box_controller import generate_code
-from techtribe.kahoot_importer.import_quiz import import_quiz
 import urllib.parse
 
 settings = settings()
